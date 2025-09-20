@@ -90,6 +90,9 @@ main {
     /* width: calc(100% + 20px);
     margin: -10px -10px 0 -10px; */
 
+    padding: 10px;
+    text-shadow: 2px 2px 6px #333;
+
     border-bottom: solid 3px #555;
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
@@ -128,7 +131,7 @@ main {
     padding: 10px;
     border-radius: 3px;
     font-size: 14px;
-    text-align: center;
+    /* text-align: center; */
     word-break: break-word;
     background-color: #f9dc5c;
 }
