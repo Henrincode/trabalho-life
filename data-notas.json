@@ -1,0 +1,25 @@
+[
+  { "id": 1, "autor": 1, "categoria": 1, "texto": "Estudar HTML e CSS pelo material do curso" },
+  { "id": 2, "autor": 2, "categoria": 1, "texto": "Fazer provas práticas no laboratório da escola" },
+  { "id": 3, "autor": 3, "categoria": 1, "texto": "Ler livros de programação recomendados pelo professor" },
+  { "id": 4, "autor": 4, "categoria": 1, "texto": "Realizar um curso técnico em Informática para Internet" },
+  { "id": 5, "autor": 1, "categoria": 1, "texto": "Fazer um curso de inglês em escola de idiomas" },
+
+  { "id": 6, "autor": 2, "categoria": 2, "texto": "Participar de workshops online de JavaScript" },
+  { "id": 7, "autor": 3, "categoria": 2, "texto": "Assistir a palestras sobre tecnologia em eventos locais" },
+  { "id": 8, "autor": 1, "categoria": 2, "texto": "Participar de um bootcamp gratuito de React" },
+  { "id": 9, "autor": 4, "categoria": 2, "texto": "Ver tutoriais no YouTube sobre Node.js" },
+  { "id": 10, "autor": 2, "categoria": 2, "texto": "Aprender SQL em minicurso de extensão" },
+
+  { "id": 11, "autor": 3, "categoria": 3, "texto": "Aprender truques no VSCode conversando com colegas" },
+  { "id": 12, "autor": 1, "categoria": 3, "texto": "Testar novas ferramentas sozinho, por curiosidade" },
+  { "id": 13, "autor": 2, "categoria": 3, "texto": "Aprender atalhos de teclado com amigos" },
+  { "id": 14, "autor": 4, "categoria": 3, "texto": "Explorar linguagens novas por hobby" },
+  { "id": 15, "autor": 1, "categoria": 3, "texto": "Ler artigos no Medium durante o tempo livre" },
+
+  { "id": 16, "autor": 2, "categoria": 1, "texto": "Concluir curso de lógica de programação na escola" },
+  { "id": 17, "autor": 3, "categoria": 2, "texto": "Entrar em comunidades online de programadores" },
+  { "id": 18, "autor": 1, "categoria": 3, "texto": "Aprender com memes de programação no Twitter" },
+  { "id": 19, "autor": 4, "categoria": 2, "texto": "Participar de hackathons universitários" },
+  { "id": 20, "autor": 2, "categoria": 3, "texto": "Conversar sobre carreira com colegas mais experientes" }
+]
