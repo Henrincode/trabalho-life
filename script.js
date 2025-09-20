@@ -55,7 +55,7 @@ async function preencherNotas(params) {
             const nnota = criarNota(nota.texto)
             naoFormal.appendChild(nnota)
         }
-        if (nota.categoria == 1) {
+        if (nota.categoria == 3) {
             const nnota = criarNota(nota.texto)
             informal.appendChild(nnota)
         }
