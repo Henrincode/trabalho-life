@@ -61,7 +61,6 @@ formCriar.forEach(form => {
 });
 
 
-
 function criarNota(texto) {
     const nota = document.createElement('div')
     nota.classList.add('nota')
@@ -72,32 +71,8 @@ function criarNota(texto) {
     return nota
 }
 
-// async function preencherNotas() {
-//     const data = await fetch('data-notas.json')
-//     const notas = await data.json()
-
-//     dbNotas = notas
-
-//     notas.forEach(nota => {
-
-//         if (nota.categoria == 1) {
-//             const nnota = criarNota(nota.texto)
-//             formal.appendChild(nnota)
-//         }
-//         if (nota.categoria == 2) {
-//             const nnota = criarNota(nota.texto)
-//             naoFormal.appendChild(nnota)
-//         }
-//         if (nota.categoria == 3) {
-//             const nnota = criarNota(nota.texto)
-//             informal.appendChild(nnota)
-//         }
-//     })
-// }
 
 async function preencherNotas() {
-
-    console.log(dbNotas)
 
     dbNotas.forEach(nota => {
 
@@ -116,8 +91,8 @@ async function preencherNotas() {
     })
 }
 
-// carregar página
 
+// carregar página
 async function carregarPagina() {
     const { data, error } = await supabase
         .from('ll_notas')
