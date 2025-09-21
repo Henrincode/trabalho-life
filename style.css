@@ -59,7 +59,9 @@ main {
 }
 
 .titulo-site {
-    height: 80px;
+    min-height: 80px;
+    padding: 20px 20px 0 20px;
+    text-align: center;
 }
 
 .titulo-site h1 {
@@ -69,7 +71,8 @@ main {
 .quadro {
     flex: 1;
     flex-direction: row;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: start;
     gap: 10px;
 
@@ -78,6 +81,7 @@ main {
 }
 
 .quadro .categoria {
+    width: 390px;
     /* padding: 10px; */
     border-radius: 10px;
 
