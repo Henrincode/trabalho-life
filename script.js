@@ -22,7 +22,6 @@ const formCriar = document.querySelectorAll(".criar-nota")
 // Variáveis globais
 // ===========================================================
 let logado
-let dbNotas
 
 // ===========================================================
 // Inicialização
@@ -42,7 +41,7 @@ formCriar.forEach(form => {
 
         const categoria = form.nota.dataset.categoria // pega categoria do input
 
-        const nota = {categoria_id: categoria, texto}
+        const nota = { categoria_id: categoria, texto }
         await inserirNota(nota)
 
         // limpar input
@@ -60,7 +59,7 @@ async function carregarPagina() {
     // Se for a primeira vez cria o usuário e deixa a id salva no storage
     logado = await logarUsuario()
 
-    // faz a primeira consulta ao banco de dados
+    // faz a primeira consulta ao banco de dados e imprime todas as notas
     const { data, error } = await supabase
         .from('ll_vw_notas')
         .select('*')
@@ -68,16 +67,10 @@ async function carregarPagina() {
     if (error) {
         console.error('Erro ao conectar:', error)
     } else {
-        dbNotas = data
+        data.forEach(nota => {
+            criarNotaElemento(nota)
+        })
     }
-    preencherNotas()
-}
-
-async function preencherNotas() {
-
-    dbNotas.forEach(nota => {
-        criarNotaElemento(nota)
-    })
 }
 
 // ===========================================================
