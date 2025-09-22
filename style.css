@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
 
 /* Para Chrome/Edge tentar aplicar no html */
 section::-webkit-scrollbar {
@@ -131,8 +132,7 @@ main {
 }
 
 .quadro .categoria section .nota {
-    user-select: none;
-    cursor: pointer;
+    position: relative;
     width: 178px;
     padding: 10px;
     border-radius: 3px;
@@ -148,6 +148,23 @@ main {
 
 .quadro .categoria.informal section .nota {
     background-color: #80ed99;
+}
+
+.quadro .categoria .nota-pessoal {
+    box-shadow: 0px 0px 4px red, 0px 0px 4px red;
+}
+
+.quadro .categoria .nota button {
+    user-select: none;
+    cursor: pointer;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+
+    border: 0;
+    font-size: 16px;
+    color: #555;
+    background: none;
 }
 
 .quadro .categoria footer {

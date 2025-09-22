@@ -42,6 +42,20 @@ create table ll_notas (
 );
 ```
 
+- Criando view para ver os joins da tabela ll_notas
+
+```sql
+CREATE VIEW ll_vw_notas AS
+SELECT 
+    n.id,
+    n.categoria_id,
+    n.usuario_id,
+    u.nome AS usuario_nome,
+    n.texto
+FROM ll_notas n
+JOIN ll_usuarios u ON u.id = n.usuario_id;
+```
+
 ### Criando conexão com o banco de dados
 
 Documentação consultada: https://supabase.github.io/supabase-js/v2/
@@ -66,3 +80,50 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 - A `URL` você pega em Project Settings > Data API
 - A `ANON_KEY` você pega em Project Setting > API Keys, NUNCA COLOQUE A CHAVE SECRETA NO FRONTEND!
+
+- Pegando informações do banco
+
+```js
+const { data, error } = await supabase
+    .from('ll_vw_notas')
+    .select('*')
+    .order('id', { ascending: false }); // ← últimas notas primeiro
+
+if (error) console.error('Erro ao conectar:', error);
+```
+
+- Inserindo dados
+
+```js
+const { data, error } = await supabase
+    .from('ll_notas')
+    .insert([
+        {
+            usuario_id: logado.id,
+            categoria_id: parseInt(categoria),
+            texto: texto
+        }
+    ])
+    .select()
+    .single(); // retorna o registro inserido
+
+if (error) console.error('Erro ao cadastrar nota:', error);
+```
+- Apagando dados
+
+```js
+const { data, error } = await supabase
+.from('ll_notas')
+.delete()
+.eq('id', id)
+
+if(error) {
+    console.error('Erro ao apagar nota:', error)
+    return null
+}
+```
+
+### Ativando `realtime` para ouvir alterações nas tabelas
+
+- No site do supabase vá até Table Editor > na tabela vai ter mais opções, selecione Edit Table e em seguita marque `Enable Realtime`
+
