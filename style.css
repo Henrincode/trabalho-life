@@ -51,7 +51,7 @@ body {
 .box {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
 
     max-width: 1200px;
     width: 100%;
@@ -113,14 +113,14 @@ body {
 
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
-    
+
     text-align: center;
 
     color: #fff;
     background: #3A86FF;
     background: linear-gradient(45deg, rgba(58, 134, 255, 1) 0%, rgba(81, 58, 255, 1) 100%);
     text-shadow: 0 0 10px #000;
-    
+
 }
 
 .quadro .categoria.nao-formal header {
@@ -137,15 +137,12 @@ body {
     flex: 1;
     overflow: auto;
 
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    
+    column-count: 3;
+    column-gap: 0px;
+
     width: 100%;
     min-width: 300px;
-    padding: 10px;
+    padding: 5px;
 
     border-top: solid 2px #444;
     border-bottom: solid 2px #444;
@@ -156,7 +153,11 @@ body {
 .quadro .categoria section .nota {
     position: relative;
 
-    width: 178px;
+    /* importante para quebrar nas colunas */
+    display: inline-block;
+
+    width: calc(100% - 10px);
+    margin: 5px;
     padding: 10px;
 
     border-radius: 3px;
@@ -213,7 +214,7 @@ body {
     padding: 10px;
 
     border-radius: 10px;
-    
+
     font-family: "Inter", sans-serif;
     font-size: 20px;
 
@@ -225,13 +226,21 @@ body {
     background-color: rgba(255, 0, 0, 0.5);
 }
 
+@media (max-width: 1820px) {
+    .quadro .categoria section {
+        column-count: 2;
+    }
+}
+
 @media (max-width: 1260px) {
     .titulo-site {
         font-size: 24px;
         letter-spacing: 10px;
     }
 
-    .quadro .categoria section .nota {
-        width: 100%;
+    .quadro .categoria section {
+        column-count: 1;
     }
+
+
 }
