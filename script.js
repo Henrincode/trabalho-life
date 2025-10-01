@@ -67,14 +67,20 @@ async function carregarPagina() {
     if (error) {
         console.error('Erro ao conectar:', error)
     } else {
+        apagarCarregando()
         data.forEach(nota => {
             criarNotaElemento(nota)
         })
     }
 }
 
+function apagarCarregando() {
+    const elementos = document.querySelectorAll('.carregando')
+    elementos.forEach(carregando => carregando.remove())
+}
+
 // ===========================================================
-// Funções - Banco de dados
+// Funções - Elementos - criar/apagar
 // ===========================================================
 
 // Cria elemento da nota no DOM

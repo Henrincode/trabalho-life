@@ -3,7 +3,7 @@
 /* bootstrap icons */
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
 
-/* Para Chrome/Edge tentar aplicar no html */
+/* Estilo das barras de rolagem */
 *::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -23,7 +23,7 @@
     background: #444;
 }
 
-
+/* Reset nos estilos */
 * {
     margin: 0;
     padding: 0;
@@ -87,6 +87,7 @@ body {
     gap: 20px;
 
     max-width: 100%;
+    /* min-height 0 é um truque para as categorias fazerem height 100% */
     min-height: 0;
     margin: 0 auto;
     padding: 20px;
@@ -136,6 +137,7 @@ body {
 .quadro .categoria section {
     flex: 1;
     overflow: auto;
+    position: relative;
 
     column-count: 3;
     column-gap: 0px;
@@ -148,6 +150,24 @@ body {
     border-bottom: solid 2px #444;
 
     background-color: #fff;
+}
+
+.quadro .categoria section .carregando {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    color: #fff;
+    background-color: #555;
+    animation: piscar 1s ease-in-out infinite;
+}
+
+@keyframes piscar {
+  0%, 100% { opacity: 1; }
+  50%     { opacity: 0; }
 }
 
 .quadro .categoria section .nota {
