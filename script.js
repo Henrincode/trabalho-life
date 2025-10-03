@@ -85,7 +85,7 @@ btnModalFechar.addEventListener('click', e => {
 async function carregarPagina() {
 
     // Se for a primeira vez cria o usuário e deixa a id salva no storage
-    logado = await logarUsuario()
+    logado = await dbLogarUsuario()
     menusNome()
 
     // faz a primeira consulta ao banco de dados e imprime todas as notas
@@ -129,7 +129,7 @@ function criarNotaElemento({ id, usuario_id, categoria_id, texto }) {
         apagar.innerHTML = '<i class="bi bi-x-circle-fill"></i>'
         apagar.addEventListener('click', async e => {
             e.stopPropagation()  // evita que o click suba para a div
-            await apagarNota(id)
+            await dbApagarNota(id)
         })
 
         nota.appendChild(apagar)
@@ -158,35 +158,12 @@ function menusNome() {
     nome.innerHTML = `<i class="bi bi-person-fill-gear"></i> ${logado.nome}`
 }
 
-function menusNomeMudar() {
-    const eMudar = document.createElement('div')
-    const eForm = document.createElement('form')
-    const eInput = document.createElement('input')
-    const btnMudar = document.createElement('button')
-
-    eMudar.className = 'mudarNome'
-    eInput.type = 'text'
-    eInput.value = logado.nome
-    btnMudar.textContent = 'Alterar nome'
-
-    btnMudar.addEventListener('click', async e => {
-        e.preventDefault()
-        await dbMudarNomeUsuario(eInput.value)
-    })
-
-    eMudar.append(eForm)
-    eForm.append(eInput)
-    eForm.append(btnMudar)
-
-    return eMudar
-}
-
 // ===========================================================
 // Funções - Banco de dados
 // ===========================================================
 
 // Logar ou criar usuário
-async function logarUsuario() {
+async function dbLogarUsuario() {
     
     let logado = localStorage.getItem('logado')
     
@@ -234,7 +211,7 @@ async function inserirNota({ categoria_id, usuario_id = logado.id, texto }) {
     criarNotaElemento(data)
 }
 
-async function apagarNota(id) {
+async function dbApagarNota(id) {
     const { data, error } = await supabase
     .from('ll_notas')
     .delete()
