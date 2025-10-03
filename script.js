@@ -18,8 +18,9 @@ const informal = document.querySelector(".informal section")
 
 const formCriar = document.querySelectorAll(".criar-nota")
 
-const modalConteudo = document.querySelector('#modal .tela .conteudo')
-const btnNome = document.querySelector('#menus .nome')
+const modal = document.querySelector('#modal')
+const btnModalNome = document.querySelector('#menus .nome')
+const btnModalFechar = document.querySelector('#modal .fechar')
 
 // ===========================================================
 // Variáveis globais
@@ -53,12 +54,13 @@ formCriar.forEach(form => {
 })
 
 // Listener btn nome
-/*
-descomentar linhas 56 e 140 e 72
-btnNome.addEventListener('click', e => {
-    modalConteudo.append(menusNomeMudar())
+btnModalNome.addEventListener('click', e => {
+    modal.classList.remove('display-none')
 })
-    */
+
+btnModalFechar.addEventListener('click', e => {
+    modal.classList.add('display-none')
+})
 
 // ===========================================================
 // Funções - Manipulando o DOM
@@ -69,7 +71,7 @@ async function carregarPagina() {
 
     // Se for a primeira vez cria o usuário e deixa a id salva no storage
     logado = await logarUsuario()
-    // menusNome()
+    menusNome()
 
     // faz a primeira consulta ao banco de dados e imprime todas as notas
     const { data, error } = await supabase
@@ -136,10 +138,10 @@ function apagarNotaElemento(id) {
 }
 
 // #menus nome
-// function menusNome() {
-//     const nome = document.querySelector('#menus .nome')
-//     nome.innerHTML = `<i class="bi bi-person-fill-gear"></i> ${logado.nome}`
-// }
+function menusNome() {
+    const nome = document.querySelector('#menus .nome')
+    nome.innerHTML = `<i class="bi bi-person-fill-gear"></i> ${logado.nome}`
+}
 
 function menusNomeMudar() {
     const eMudar = document.createElement('div')
@@ -201,7 +203,8 @@ async function dbMudarNomeUsuario(nome) {
     .select()
     .single()
 
-    // localStorage.setItem
+    logado = data
+    localStorage.setItem('logado', JSON.stringify(data))
 
     return data
 }

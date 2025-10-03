@@ -304,8 +304,22 @@ body {
     /* background-color: #fff; */
 }
 
+#mudarNomeUsuario {
+    /* background-color: #fff; */
+}
+
 #modal .tela .fechar {
+    cursor: pointer;
+    user-select: none;
     font-size: 40px;
+}
+
+#modal .tela .fechar:hover {
+    color: #888;
+}
+
+.display-none {
+    display: none;
 }
 
 .teste {
