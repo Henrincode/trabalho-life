@@ -19,7 +19,10 @@ const informal = document.querySelector(".informal section")
 const formCriar = document.querySelectorAll(".criar-nota")
 
 const modal = document.querySelector('#modal')
+const modalMudarNome = document.querySelector('#modalMudarNome')
+const modalChat = document.querySelector('#modalChat')
 const btnModalNome = document.querySelector('#menus .nome')
+const btnModalChat = document.querySelector('#menus .chat')
 const btnModalFechar = document.querySelector('#modal .fechar')
 
 // ===========================================================
@@ -55,11 +58,23 @@ formCriar.forEach(form => {
 
 // Listener btn nome
 btnModalNome.addEventListener('click', e => {
+    modalChat.classList.add('display-none')
+    modalMudarNome.classList.remove('display-none')
     modal.classList.remove('display-none')
 })
 
+// Listener btn chat
+btnModalChat.addEventListener('click', e => {
+    modalMudarNome.classList.add('display-none')
+    modalChat.classList.remove('display-none')
+    modal.classList.remove('display-none')
+})
+
+// Listener btn fechar
 btnModalFechar.addEventListener('click', e => {
     modal.classList.add('display-none')
+    modalMudarNome.classList.add('display-none')
+    modalChat.classList.add('display-none')
 })
 
 // ===========================================================
@@ -302,3 +317,66 @@ function ouvirTabelaNotas() {
         // Restaura o scroll
         window.scrollTo(0, scrollTop);
     }
+
+
+
+
+
+
+    // particle.js
+    document.addEventListener("DOMContentLoaded", function() {
+      particlesJS("particles-js", 
+        {
+          "particles": {
+            "number": {
+              "value": 80,
+              "density": {
+                "enable": true,
+                "value_area": 800
+              }
+            },
+            "color": {
+              "value": "#ffffff"
+            },
+            "shape": {
+              "type": "circle"
+            },
+            "opacity": {
+              "value": 0.5
+            },
+            "size": {
+              "value": 3,
+              "random": true
+            },
+            "line_linked": {
+              "enable": true,
+              "distance": 150,
+              "color": "#ffffff",
+              "opacity": 0.4,
+              "width": 1
+            },
+            "move": {
+              "enable": true,
+              "speed": 1
+            }
+          },
+          "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+              "onhover": {
+                "enable": true,
+                "mode": "repulse"
+              },
+              "onclick": {
+                "enable": true,
+                "mode": "push"
+              }
+            }
+          },
+          "retina_detect": true
+        },
+        function() {
+          console.log("particles.js carregado com configuração personalizada");
+        }
+      );
+    });

@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <div id="particles-js"></div>
 
     <section class="header">
         <header class="container titulo-site">
@@ -69,8 +70,11 @@
         <div class="tela">
             <div class="conteudo">
                 <!-- Mudar nome do usuário -->
-                <div id="mudarNomeUsuario">
+                <div id="modalMudarNome" class="display-none">
                     mudar nome
+                </div>
+                <div id="modalChat" class="display-none">
+                    Chat
                 </div>
             </div>
             <div class="fechar"><i class="bi bi-x-circle-fill"></i></div>
@@ -78,6 +82,7 @@
     </section>
 
     <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script type="module" src="script.js?v=1.0.6"></script>
 </body>
 
