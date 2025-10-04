@@ -321,8 +321,43 @@ body {
     /* background-color: #fff; */
 }
 
-#mudarNomeUsuario {
-    /* background-color: #fff; */
+#modalMudarNome {
+    max-width: 300px;
+    width: 100%;
+    text-align: center;
+    /* background-color: red; */
+}
+#modalMudarNome form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 20px;
+
+}
+
+#modalMudarNome input {
+    outline: none;
+    width: 100%;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 5px 0 0 5px;
+    font-size: 18px;
+}
+
+#modalMudarNome button {
+    cursor: pointer;
+    user-select: none;
+    padding: 10px;
+    border: 0;
+    border-radius: 0 5px 5px 0;
+    white-space: nowrap;
+    font-weight: bold;
+    color: #fff;
+    background-color: #242424;
+}
+
+#modalMudarNome button:hover {
+    background-color: #555;
 }
 
 #modal .tela .fechar {

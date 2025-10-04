@@ -22,6 +22,8 @@ const modal = document.querySelector('#modal')
 const modalMudarNome = document.querySelector('#modalMudarNome')
 const modalChat = document.querySelector('#modalChat')
 const btnModalNome = document.querySelector('#menus .nome')
+const btnModalMudarNome = modalMudarNome.querySelector('button')
+const inputModalMudarNome = modalMudarNome.querySelector('input')
 const btnModalChat = document.querySelector('#menus .chat')
 const btnModalFechar = document.querySelector('#modal .fechar')
 
@@ -56,6 +58,7 @@ formCriar.forEach(form => {
     })
 })
 
+// Modal nome
 // Listener btn nome
 btnModalNome.addEventListener('click', e => {
     modalChat.classList.add('display-none')
@@ -63,6 +66,16 @@ btnModalNome.addEventListener('click', e => {
     modal.classList.remove('display-none')
 })
 
+inputModalMudarNome.addEventListener('keydown', e => {
+  console.log(e.key)
+})
+
+btnModalMudarNome.addEventListener('click', e => {
+  e.preventDefault()
+  console.log('btn mudar nome')
+})
+
+// Modal Chat
 // Listener btn chat
 btnModalChat.addEventListener('click', e => {
     modalMudarNome.classList.add('display-none')
@@ -70,6 +83,7 @@ btnModalChat.addEventListener('click', e => {
     modal.classList.remove('display-none')
 })
 
+// Modal fechar
 // Listener btn fechar
 btnModalFechar.addEventListener('click', e => {
     modal.classList.add('display-none')
