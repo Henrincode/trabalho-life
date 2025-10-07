@@ -9,6 +9,7 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 ouvirTabelaUsuarios()
 ouvirTabelaNotas()
+ouvirTabelaChat()
 
 // ===========================================================
 // Seletores DOM
@@ -26,6 +27,7 @@ const btnModalNome = document.querySelector('#menus .nome')
 const btnModalMudarNome = modalMudarNome.querySelector('button')
 const inputModalMudarNome = modalMudarNome.querySelector('input')
 const btnModalChat = document.querySelector('#menus .chat')
+const modalChatForm = modalChat.querySelector('form')
 const btnModalFechar = document.querySelector('#modal .fechar')
 
 // ===========================================================
@@ -85,6 +87,16 @@ btnModalChat.addEventListener('click', e => {
   modal.classList.remove('display-none')
 })
 
+modalChatForm.addEventListener('submit', e => {
+  e.preventDefault()
+  const texto = modalChatForm.chatEnviar.value.trim()
+  if(!texto) return
+
+  const chat = {usuario_id: logado.id, texto}
+  dbCriarChat(chat)
+  modalChatForm.reset()
+})
+
 // Modal fechar
 // Listener btn fechar
 btnModalFechar.addEventListener('click', e => {
@@ -102,7 +114,15 @@ async function carregarPagina() {
 
   // Se for a primeira vez cria o usuário e deixa a id salva no storage
   logado = await dbLogarUsuario()
+  usuarios[logado.id] = logado.nome
   menusNome()
+
+  // faz a primeira consulta ao banco de dados e armazena todos os usuários
+  const { data: tbusuarios } = await supabase
+  .from('ll_usuarios')
+  .select()
+
+  tbusuarios.forEach(u => usuarios[u.id] = u.nome)
 
   // faz a primeira consulta ao banco de dados e imprime todas as notas
   const { data, error } = await supabase
@@ -114,10 +134,6 @@ async function carregarPagina() {
   } else {
     apagarCarregando()
     data.forEach(nota => {
-      // Salva usuarios em obj
-      if (!usuarios[nota.usuario_id]) {
-        usuarios[nota.usuario_id] = nota.usuario_nome
-      }
 
       // cria as notas
       criarNotaElemento(nota)
@@ -136,6 +152,7 @@ function apagarCarregando() {
 
 // Criar elemento mensagem chat
 function criarChatMensagemElemento({ id, usuario_id, texto }) {
+  console.log('elemento', usuario_id, usuarios[usuario_id], texto)
   const msg = document.createElement('div')
   msg.dataset.id = id
   msg.dataset.usuario = usuario_id
@@ -151,6 +168,18 @@ function criarChatMensagemElemento({ id, usuario_id, texto }) {
 
   msg.append(nome)
   msg.append(msgtexto)
+
+  const chat = modalChat.querySelector('#chat')
+
+  const estaNoFinal = chat.scrollTop + chat.clientHeight >= chat.scrollHeight - 10;
+
+
+  chat.append(msg)
+
+   if (estaNoFinal) {
+    chat.scrollTop = chat.scrollHeight;
+    // btnIrParaFinal.style.display = estaNoFinal ? 'none' : 'block';
+  }
 
 }
 
@@ -203,8 +232,11 @@ function apagarNotaElemento(id) {
 // Muda nome de usuário nas notas
 function notasUsuarioAlterado({ id, nome }) {
   const notas = document.querySelectorAll(`.quadro .nota[data-usuario="${id}"] .autor`)
+  const chats = document.querySelectorAll(`#modalChat .mensagem[data-usuario="${id}"] .nome`)
 
   notas.forEach(autor => autor.textContent = nome)
+
+  chats.forEach(autor => autor.textContent = nome)
 }
 
 // #menus nome
@@ -284,6 +316,18 @@ async function dbApagarNota(id) {
   apagarNotaElemento(id)
 }
 
+async function dbCriarChat({usuario_id, texto}) {
+  console.log(usuario_id, texto)
+  const { data, error } = await supabase
+  .from('ll_chat')
+  .insert([{usuario_id, texto}])
+  .select()
+  .single()
+
+  console.log('db', data)
+  criarChatMensagemElemento(data)
+}
+
 // ===========================================================
 // Realtime
 // ===========================================================
@@ -350,6 +394,41 @@ function ouvirTabelaUsuarios() {
 
         if (payload.eventType === "DELETE") {
           console.log("Usuario removido:", payload.old)
+
+          // ex: remover do DOM
+        }
+      }
+    )
+    .subscribe()
+
+  console.log('ouvindo ll_usuarios')
+}
+
+function ouvirTabelaChat() {
+  const channel = supabase
+    .channel('canal_ll_chat')
+    .on(
+      'postgres_changes',
+      { event: '*', schema: 'public', table: 'll_chat' },
+      (payload) => {
+        console.log("Evento:", payload.eventType)
+
+        if (payload.eventType === "INSERT") {
+          console.log("Novo chat:", payload.new)
+          if (logado.id !== payload.new.usuario_id) criarChatMensagemElemento(payload.new)
+          // ex: adicionar no DOM
+        }
+
+        if (payload.eventType === "UPDATE") {
+          console.log("Chat atualizado:", payload.new)
+          console.log("Antes era:", payload.old)
+
+          usuarios[payload.new.id] = payload.new.nome
+          // ex: atualizar no DOM
+        }
+
+        if (payload.eventType === "DELETE") {
+          console.log("Chat removido:", payload.old)
 
           // ex: remover do DOM
         }
