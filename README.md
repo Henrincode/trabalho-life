@@ -42,6 +42,19 @@ create table ll_notas (
 );
 ```
 
+- Criando tabela ll_chat
+
+```sql
+create table ll_chat (
+    id bigserial primary key,
+    usuario_id bigint not null,
+    texto text not null,
+    data timestamptz default now(),
+
+    constraint notas_usuario_fk foreign key (usuario_id) references ll_usuarios(id)
+);
+```
+
 - Criando view para ver os joins da tabela ll_notas
 
 ```sql
@@ -54,6 +67,19 @@ SELECT
     n.texto
 FROM ll_notas n
 JOIN ll_usuarios u ON u.id = n.usuario_id;
+```
+
+- Criando view para ver os joins da tabela ll_chat
+
+```sql
+CREATE VIEW ll_vw_chat AS
+SELECT 
+    c.id,
+    c.usuario_id,
+    u.nome AS usuario_nome,
+    c.texto
+FROM ll_chat c
+JOIN ll_usuarios u ON u.id = c.usuario_id;
 ```
 
 ### Criando conexão com o banco de dados

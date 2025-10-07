@@ -134,6 +134,26 @@ function apagarCarregando() {
 // Funções - Elementos - criar/editar/apagar
 // ===========================================================
 
+// Criar elemento mensagem chat
+function criarChatMensagemElemento({ id, usuario_id, texto }) {
+  const msg = document.createElement('div')
+  msg.dataset.id = id
+  msg.dataset.usuario = usuario_id
+  msg.classList.add('mensagem')
+
+  const nome = document.createElement('div')
+  nome.classList.add('nome')
+  nome.textContent = usuarios[usuario_id]
+
+  const msgtexto = document.createElement('div')
+  msgtexto.classList.add('texto')
+  msgtexto.textContent = texto
+
+  msg.append(nome)
+  msg.append(msgtexto)
+
+}
+
 // Cria elemento da nota no DOM
 function criarNotaElemento({ id, usuario_id, categoria_id, texto }) {
   const nota = document.createElement('div')
@@ -142,24 +162,24 @@ function criarNotaElemento({ id, usuario_id, categoria_id, texto }) {
   nota.dataset.categoria = categoria_id
   nota.classList.add('nota')
   nota.textContent = texto
-  
+
   // Coloca criador da nota
   const autor = document.createElement('div')
   autor.textContent = usuarios[usuario_id]
   autor.classList.add('autor')
   nota.prepend(autor)
-  
+
   // Se a nota é do usuário logado, adiciona classe extra e botão de apagar
   if (logado.id === usuario_id) {
     nota.classList.add('nota-pessoal')
-    
+
     const apagar = document.createElement('button')
     apagar.innerHTML = '<i class="bi bi-x-circle-fill"></i>'
     apagar.addEventListener('click', async e => {
       e.stopPropagation()  // evita que o click suba para a div
       await dbApagarNota(id)
     })
-    
+
     nota.appendChild(apagar)
   }
   // coloca a nota na coluna certa
@@ -168,23 +188,23 @@ function criarNotaElemento({ id, usuario_id, categoria_id, texto }) {
   if (categoria_id == 2) elemento = naoFormal
   if (categoria_id == 3) elemento = informal
   if (elemento) elemento.prepend(nota)
-  }
+}
 
 // Apaga elemento da nota no DOM
 function apagarNotaElemento(id) {
   const notas = document.querySelectorAll('.nota')
-  
+
   notas.forEach(nota => {
     const nota_id = parseInt(nota.dataset.id)
     if (nota_id === id) nota.remove()
-    })
+  })
 }
 
 // Muda nome de usuário nas notas
-function notasUsuarioAlterado({id, nome}) {
-const notas = document.querySelectorAll(`.quadro .nota[data-usuario="${id}"] .autor`)
+function notasUsuarioAlterado({ id, nome }) {
+  const notas = document.querySelectorAll(`.quadro .nota[data-usuario="${id}"] .autor`)
 
-notas.forEach(autor => autor.textContent = nome)
+  notas.forEach(autor => autor.textContent = nome)
 }
 
 // #menus nome
