@@ -28,6 +28,7 @@ const btnModalMudarNome = modalMudarNome.querySelector('button')
 const inputModalMudarNome = modalMudarNome.querySelector('input')
 const btnModalChat = document.querySelector('#menus .chat')
 const modalChatForm = modalChat.querySelector('form')
+const btnDarkMode = document.querySelector('#menus .thema')
 const btnModalFechar = document.querySelector('#modal .fechar')
 
 // ===========================================================
@@ -39,6 +40,9 @@ const usuarios = {}
 // ===========================================================
 // Inicialização
 // ===========================================================
+// dark mode
+localStorage.getItem('thema', 'dark') && document.documentElement.classList.add('dark')
+
 carregarPagina()
 
 // ===========================================================
@@ -103,6 +107,22 @@ btnModalFechar.addEventListener('click', e => {
   modal.classList.add('display-none')
   modalMudarNome.classList.add('display-none')
   modalChat.classList.add('display-none')
+})
+
+// botão mudar thema
+btnDarkMode.addEventListener('click', e => {
+  e.preventDefault()
+  const html = document.documentElement
+
+  if(!localStorage.getItem('thema')) {
+    html.classList.add('dark')
+    localStorage.setItem('thema', 'dark')
+  } else {
+    html.classList.remove('dark')
+    localStorage.removeItem('thema')
+  }
+
+  
 })
 
 // ===========================================================
@@ -278,12 +298,17 @@ async function dbLogarUsuario() {
 async function dbMudarNomeUsuario(nome) {
   if (!nome) return
 
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('ll_usuarios')
     .update({ nome })
     .eq('id', logado.id)
     .select()
     .single()
+
+    if(error) {
+      console.error('Erro ao mudar o nome do usuário:', error)
+      return null
+    }
 
   logado = data
   localStorage.setItem('logado', JSON.stringify(data))
@@ -317,14 +342,12 @@ async function dbApagarNota(id) {
 }
 
 async function dbCriarChat({usuario_id, texto}) {
-  console.log(usuario_id, texto)
   const { data, error } = await supabase
   .from('ll_chat')
   .insert([{usuario_id, texto}])
   .select()
   .single()
 
-  console.log('db', data)
   criarChatMensagemElemento(data)
 }
 
@@ -436,44 +459,10 @@ function ouvirTabelaChat() {
     )
     .subscribe()
 
-  console.log('ouvindo ll_usuarios')
+  console.log('ouvindo ll_chat')
 }
-
-
-
 
 //-------------------------------------------------------------------------
-
-
-// trava barra de rolagem
-function rolagemBloquear() {
-  // Pega a posição atual do scroll
-  const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-  // Congela a rolagem
-  document.body.style.position = 'fixed';
-  document.body.style.top = `-${scrollTop}px`;
-  document.body.style.width = '100%';
-}
-
-// Libera barra de rolagem
-function rolagemLiberar() {
-  // Recupera a posição que estava
-  const scrollTop = parseInt(document.body.style.top || '0') * -1;
-
-  // Libera o scroll
-  document.body.style.position = '';
-  document.body.style.top = '';
-  document.body.style.width = '';
-
-  // Restaura o scroll
-  window.scrollTo(0, scrollTop);
-}
-
-
-
-
-
 
 // particle.js
 document.addEventListener("DOMContentLoaded", function () {

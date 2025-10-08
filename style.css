@@ -3,6 +3,21 @@
 /* bootstrap icons */
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
 
+/* variaveis */
+:root {
+    --bg-body: #613dc1;
+    --bg-section: #fff;
+    --bg-section-footer: #fff;
+    --bg-section-input: #fff;
+}
+
+html.dark {
+    --bg-body: #201442;
+    --bg-section: #555;
+    --bg-section-footer: #555;
+    --bg-section-input: #222;
+}
+
 /* Estilo das barras de rolagem */
 *::-webkit-scrollbar {
     width: 6px;
@@ -37,7 +52,7 @@ body {
     font-size: 24px;
 
     color: #242424;
-    background: #613dc1;
+    background: var(--bg-body);
 }
 
 #particles-js {
@@ -159,7 +174,7 @@ body {
     border-top: solid 2px #444;
     border-bottom: solid 2px #444;
 
-    background-color: #fff;
+    background-color: var(--bg-section);
 }
 
 .quadro .categoria section .carregando {
@@ -251,7 +266,7 @@ body {
     border-bottom-left-radius: inherit;
     border-bottom-right-radius: inherit;
 
-    background-color: #fff;
+    background-color: var(--bg-section-footer);
 }
 
 .quadro .categoria footer form {
@@ -268,6 +283,8 @@ body {
     font-size: 20px;
 
     border: solid 2px #888;
+
+    background-color: var(--bg-section-input);
 }
 
 
