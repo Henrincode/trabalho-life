@@ -46,12 +46,11 @@ localStorage.getItem('thema', 'dark') && document.documentElement.classList.add(
 carregarPagina()
 
 // ===========================================================
-// Listener formulário criar nova nota
+// Listeners
 // ===========================================================
 formCriar.forEach(form => {
   form.addEventListener("submit", async e => {
     e.preventDefault()
-
 
     const texto = form.nota.value.trim()
     if (!texto) return
@@ -94,9 +93,9 @@ btnModalChat.addEventListener('click', e => {
 modalChatForm.addEventListener('submit', e => {
   e.preventDefault()
   const texto = modalChatForm.chatEnviar.value.trim()
-  if(!texto) return
+  if (!texto) return
 
-  const chat = {usuario_id: logado.id, texto}
+  const chat = { usuario_id: logado.id, texto }
   dbCriarChat(chat)
   modalChatForm.reset()
 })
@@ -114,15 +113,13 @@ btnDarkMode.addEventListener('click', e => {
   e.preventDefault()
   const html = document.documentElement
 
-  if(!localStorage.getItem('thema')) {
+  if (!localStorage.getItem('thema')) {
     html.classList.add('dark')
     localStorage.setItem('thema', 'dark')
   } else {
     html.classList.remove('dark')
     localStorage.removeItem('thema')
   }
-
-  
 })
 
 // ===========================================================
@@ -139,8 +136,8 @@ async function carregarPagina() {
 
   // faz a primeira consulta ao banco de dados e armazena todos os usuários
   const { data: tbusuarios } = await supabase
-  .from('ll_usuarios')
-  .select()
+    .from('ll_usuarios')
+    .select()
 
   tbusuarios.forEach(u => usuarios[u.id] = u.nome)
 
@@ -196,7 +193,7 @@ function criarChatMensagemElemento({ id, usuario_id, texto }) {
 
   chat.append(msg)
 
-   if (estaNoFinal) {
+  if (estaNoFinal) {
     chat.scrollTop = chat.scrollHeight;
     // btnIrParaFinal.style.display = estaNoFinal ? 'none' : 'block';
   }
@@ -305,10 +302,10 @@ async function dbMudarNomeUsuario(nome) {
     .select()
     .single()
 
-    if(error) {
-      console.error('Erro ao mudar o nome do usuário:', error)
-      return null
-    }
+  if (error) {
+    console.error('Erro ao mudar o nome do usuário:', error)
+    return null
+  }
 
   logado = data
   localStorage.setItem('logado', JSON.stringify(data))
@@ -341,12 +338,12 @@ async function dbApagarNota(id) {
   apagarNotaElemento(id)
 }
 
-async function dbCriarChat({usuario_id, texto}) {
+async function dbCriarChat({ usuario_id, texto }) {
   const { data, error } = await supabase
-  .from('ll_chat')
-  .insert([{usuario_id, texto}])
-  .select()
-  .single()
+    .from('ll_chat')
+    .insert([{ usuario_id, texto }])
+    .select()
+    .single()
 
   criarChatMensagemElemento(data)
 }
@@ -363,24 +360,24 @@ function ouvirTabelaNotas() {
       (payload) => {
         console.log("Evento:", payload.eventType)
 
+        // ex: adicionar no DOM
         if (payload.eventType === "INSERT") {
           console.log("Nova nota:", payload.new)
 
           if (logado.id !== payload.new.usuario_id) criarNotaElemento(payload.new)
-          // ex: adicionar no DOM
         }
 
+        // ex: atualizar no DOM
         if (payload.eventType === "UPDATE") {
           console.log("Nota atualizada:", payload.new)
           console.log("Antes era:", payload.old)
-          // ex: atualizar no DOM
         }
 
+        // ex: remover do DOM
         if (payload.eventType === "DELETE") {
           console.log("Nota removida:", payload.old)
 
           apagarNotaElemento(payload.old.id)
-          // ex: remover do DOM
         }
       }
     )
@@ -399,26 +396,26 @@ function ouvirTabelaUsuarios() {
       (payload) => {
         console.log("Evento:", payload.eventType)
 
+        // ex: adicionar no DOM
         if (payload.eventType === "INSERT") {
           console.log("Novo usuario:", payload.new)
 
           usuarios[payload.new.id] = payload.new.nome
-          // ex: adicionar no DOM
         }
 
+        // ex: atualizar no DOM
         if (payload.eventType === "UPDATE") {
           console.log("Usuario atualizado:", payload.new)
           console.log("Antes era:", payload.old)
 
           usuarios[payload.new.id] = payload.new.nome
           notasUsuarioAlterado(payload.new)
-          // ex: atualizar no DOM
         }
 
+        // ex: remover do DOM
         if (payload.eventType === "DELETE") {
           console.log("Usuario removido:", payload.old)
 
-          // ex: remover do DOM
         }
       }
     )
@@ -436,24 +433,24 @@ function ouvirTabelaChat() {
       (payload) => {
         console.log("Evento:", payload.eventType)
 
+        // ex: adicionar no DOM
         if (payload.eventType === "INSERT") {
           console.log("Novo chat:", payload.new)
           if (logado.id !== payload.new.usuario_id) criarChatMensagemElemento(payload.new)
-          // ex: adicionar no DOM
         }
 
+        // ex: atualizar no DOM
         if (payload.eventType === "UPDATE") {
           console.log("Chat atualizado:", payload.new)
           console.log("Antes era:", payload.old)
 
           usuarios[payload.new.id] = payload.new.nome
-          // ex: atualizar no DOM
         }
 
+        // ex: remover do DOM
         if (payload.eventType === "DELETE") {
           console.log("Chat removido:", payload.old)
 
-          // ex: remover do DOM
         }
       }
     )
