@@ -483,7 +483,7 @@ body {
     border-top: solid 3px #fff;
     display: flex;
     justify-content: center;
-    padding: 48px;
+    padding: 48px 10px;
 }
 
 .ro-container {
@@ -617,6 +617,10 @@ body {
 }
 
 @media (max-width:640px) {
+    .ro-body {
+        font-size: 12px;
+    }
+
     .ro-container {
         padding: 18px
     }
