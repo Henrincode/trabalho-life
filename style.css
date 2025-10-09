@@ -9,6 +9,12 @@
     --bg-section: #fff;
     --bg-section-footer: #fff;
     --bg-section-input: #fff;
+
+    --max-w: 900px;
+    --muted: #666;
+    --accent: #0b6;
+    --paper: #fff;
+    --bg: rgba(247, 247, 248, 0.5)
 }
 
 html.dark {
@@ -447,6 +453,180 @@ body {
 #modal .tela .fechar:hover {
     color: #888;
 }
+
+.botao-voltar-topo {
+    cursor: pointer;
+    position: fixed;
+    bottom:  10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0;
+    border: 0;
+    font-size: 60px;
+    color: #fff;
+    background-color: unset;
+    filter: drop-shadow(0 0 5px #000);
+}
+
+.botao-voltar-topo:hover {
+    color: #333;
+    filter: drop-shadow(0 0 5px #888);
+}
+
+/* #ROTEIRO */
+.ro-body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: var(--bg);
+    color: #111;
+    line-height: 1.5;
+    margin: 0;
+    border-top: solid 3px #fff;
+    display: flex;
+    justify-content: center;
+    padding: 48px;
+}
+
+.ro-container {
+    width: 100%;
+    max-width: var(--max-w);
+    background: var(--paper);
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(20, 20, 30, 0.06);
+    padding: 28px;
+    box-sizing: border-box;
+}
+
+.ro-header {
+    margin-bottom: 18px;
+}
+
+.ro-title {
+    font-size: 1.6rem;
+    margin: 0 0 6px 0;
+}
+
+.ro-meta {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 6px 0 0 0
+}
+
+.ro-hr {
+    height: 1px;
+    background: #e7e7e8;
+    margin: 18px 0;
+    border-radius: 2px
+}
+
+.ro-section {
+    margin: 14px 0
+}
+
+.ro-section h2 {
+    font-size: 1.05rem;
+    margin: 0 0 10px 0
+}
+
+.ro-section p {
+    margin: 6px 0
+}
+
+.ro-list {
+    margin: 8px 0 8px 26px
+}
+
+.ro-list ol {
+    padding-left: 18px;
+    margin: 0
+}
+
+.ro-list ul {
+    padding-left: 18px;
+    margin: 0
+}
+
+.ro-timeline {
+    background: #fbfbfc;
+    border: 1px solid #efefef;
+    padding: 12px;
+    border-radius: 8px
+}
+
+.ro-timeitem {
+    margin: 8px 0;
+    padding: 8px;
+    border-left: 3px solid #e9e9ea;
+    background: transparent
+}
+
+.ro-subsection {
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 8px;
+    background: linear-gradient(180deg, #fff, #fbfbfb)
+}
+
+.ro-speaker {
+    font-weight: 600;
+    margin-top: 6px
+}
+
+.ro-quote {
+    margin: 8px 0;
+    padding: 10px 12px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #eee
+}
+
+.ro-small {
+    font-size: 0.92rem;
+    color: var(--muted)
+}
+
+.ro-guides ul {
+    margin: 8px 0 0 18px
+}
+
+.ro-guides li {
+    margin: 6px 0
+}
+
+.ro-footer {
+    margin-top: 18px;
+    border-top: 1px dashed #e9e9ea;
+    padding-top: 12px;
+    color: var(--muted);
+    font-size: 0.95rem
+}
+
+/* pequenas utilidades */
+.ro-mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace
+}
+
+.ro-grid {
+    display: grid;
+    gap: 10px
+}
+
+.ro-flex {
+    display: flex;
+    gap: 12px;
+    align-items: center
+}
+
+@media (max-width:640px) {
+    .ro-container {
+        padding: 18px
+    }
+
+    .ro-title {
+        font-size: 1.25rem
+    }
+}
+
+/* /#ROTEIRO */
 
 .display-none {
     display: none;

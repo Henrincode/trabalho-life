@@ -29,7 +29,10 @@ const inputModalMudarNome = modalMudarNome.querySelector('input')
 const btnModalChat = document.querySelector('#menus .chat')
 const modalChatForm = modalChat.querySelector('form')
 const btnDarkMode = document.querySelector('#menus .thema')
+const btnSobre = document.querySelector('#menus .sobre')
 const btnModalFechar = document.querySelector('#modal .fechar')
+
+const btnVoltarTopo = document.querySelector('.botao-voltar-topo')
 
 // ===========================================================
 // Variáveis globais
@@ -48,6 +51,21 @@ carregarPagina()
 // ===========================================================
 // Listeners
 // ===========================================================
+
+// Mostrar/ocultar o botão conforme a rolagem
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 200) { // aparece depois de 200px rolados
+    btnVoltarTopo.classList.remove('display-none')
+  } else {
+    btnVoltarTopo.classList.add('display-none')
+  }
+})
+
+// Rolar suavemente até o topo ao clicar
+btnVoltarTopo.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+})
+
 formCriar.forEach(form => {
   form.addEventListener("submit", async e => {
     e.preventDefault()
@@ -119,6 +137,17 @@ btnDarkMode.addEventListener('click', e => {
   } else {
     html.classList.remove('dark')
     localStorage.removeItem('thema')
+  }
+})
+
+// botão sobre
+btnSobre.addEventListener('click', e => {
+  e.preventDefault()
+  const sobre = document.querySelector('#sobre')
+  if (sobre) {
+    sobre.scrollIntoView({ behavior: 'smooth' })
+  } else {
+    console.warn("Elemento #sobre não encontrado.")
   }
 })
 
