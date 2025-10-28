@@ -310,12 +310,17 @@ body {
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.5), 0 1px 2px #000;
 }
 
+#menus i {
+    font-size: 16px;
+}
+
 #menus>button, #menus>a {
     cursor: pointer;
     user-select: none;
     padding: 5px 10px;
     border: solid 1px #ddd;
     border-radius: 5px;
+    font-size: inherit;
     text-align: center;
     text-decoration: inherit;
     color: inherit;
