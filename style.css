@@ -323,6 +323,7 @@ body {
     font-size: inherit;
     text-align: center;
     text-decoration: inherit;
+    font-weight: normal;
     color: inherit;
     background-color: #eee;
 }
