@@ -301,7 +301,7 @@ body {
     flex-direction: row;
     flex-wrap: nowrap;
     gap: 5px;
-    margin: 10px 0;
+    margin: 10px;
     padding: 5px;
     border-radius: 5px;
     font-size: 16px;
@@ -316,6 +316,7 @@ body {
     padding: 5px 10px;
     border: solid 1px #ddd;
     border-radius: 5px;
+    text-align: center;
     text-decoration: inherit;
     color: inherit;
     background-color: #eee;
